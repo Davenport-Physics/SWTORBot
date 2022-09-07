@@ -38,6 +38,10 @@
 			"missions": false
 		}
 
-	]
+	],
+	"delays": {
+		"mission_minimum_delay": 150,
+		"mission_maximum_delay": 1250
+	}
 
 }
