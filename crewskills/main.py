@@ -1,8 +1,6 @@
 from PIL import ImageGrab
 from game_images import load_game_images
 
-
-
 def main():
 
 	load_game_images()
