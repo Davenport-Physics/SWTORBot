@@ -1,27 +1,29 @@
 
 import os
+import cv2  
 
-def load_game_images():
+crew_images  = []
+skill_images = []
 
-	crew_images = load_images("images/crew/")
+def init_game_images():
+
+	global crew_images
+	global skill_images
+
+	crew_images  = load_images("images/crew/")
 	skill_images = load_images("images/skills/")
-
-	for i in range(len(crew_images)):
-		print(crew_images[i].name)
 
 def load_images(path):
 
 	temp = []
 	for filename in os.listdir(path):
-		with open(os.path.join(path, filename), "rb") as f:
-			data = f.read()
-			temp.append(Image(filename, data))
+		opencv_image = cv2.imread(os.path.join(path, filename))
+		temp.append(Image(filename, opencv_image))
 
 	return temp
 
-
 class Image():
 
-	def __init__(self, name, data):
-		self.name = name
-		self.data = data
+	def __init__(self, name, opencv_image):
+		self.name         = name
+		self.opencv_image = opencv_image
