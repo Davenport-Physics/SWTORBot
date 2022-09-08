@@ -11,6 +11,10 @@ class ScreenImage:
 
 	def save_image(self, location="test.jpg"):
 
+		cv2.imwrite(location, self.opencv_image)
+
+	def save_raw_image(self, location="test.jpg"):
+
 		with open(location, "w+") as fp :
 			self.image.save(fp)
 
@@ -18,6 +22,10 @@ class ScreenImage:
 
 		result = cv2.matchTemplate(sub_image, self.opencv_image, cv2.TM_CCOEFF_NORMED)  
 		return np.unravel_index(result.argmax(), result.shape)
+
+	def draw_circle_at_coords(self, coords):
+
+		cv2.circle(self.opencv_image, coords, 10, (255,0,0), 5)
 
 def convert_pil_image_to_cv2(image):
 
