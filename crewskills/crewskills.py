@@ -1,4 +1,5 @@
 import pyautogui
+import time
 from game_images import get_misc_image, get_skill_images
 from screenlib import ScreenImage
 from config import get_config
@@ -15,6 +16,7 @@ def open_crew_skills_panel():
 	
 	if not crew_skills_panel_opened():
 		pyautogui.press('b')
+		time.sleep(1)
 
 def get_available_crew_skills():
 

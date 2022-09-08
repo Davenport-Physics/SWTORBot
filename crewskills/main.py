@@ -1,3 +1,6 @@
+
+import pyautogui
+import time
 from game_images import init_game_images, get_skill_images, get_crew_images, Image
 from config import *
 from screenlib import ScreenImage
@@ -19,8 +22,16 @@ def test_functions():
 
 def test_available_crew_skills():
 
-	for crew_skill in get_available_crew_skills():
+	crew_skills = get_available_crew_skills()
+	for crew_skill in crew_skills:
 		print(crew_skill)
+		pyautogui.moveTo(crew_skill.coords[0] + 2, crew_skill.coords[1] + 2)
+		pyautogui.click()
+		time.sleep(0.1)
+
+	pyautogui.press('esc')
+	pyautogui.press('esc')
+
 
 def test_screen_saving():
 
