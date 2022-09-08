@@ -25,7 +25,7 @@ class ScreenImage:
 
 	def draw_circle_at_coords(self, coords):
 
-		cv2.circle(self.opencv_image, coords, 10, (255,0,0), 5)
+		cv2.circle(self.opencv_image, (coords[1], coords[0]), 10, (255,0,0), 2)
 
 def convert_pil_image_to_cv2(image):
 
