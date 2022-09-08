@@ -24,8 +24,8 @@ def test_screen_sub_image_coords():
 	for img in get_skill_images():
 		print(img.name)
 		coords = screen_image.get_coords_of_sub_image(img.opencv_image)
-		print(coords)
-		screen_image.draw_circle_at_coords(coords)
+		if coords is not None:
+			screen_image.draw_circle_at_coords(coords)
 
 	screen_image.save_image("crude_circle.jpg")
 

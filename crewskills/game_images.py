@@ -30,6 +30,15 @@ def get_misc_images():
 	global misc_images
 	return misc_images
 
+def get_misc_image(image_name):
+
+	for img in misc_images:
+		if img.name == image_name:
+			return img
+
+	raise "Unable to find image {}".format(image_name)
+
+
 def load_images(path):
 
 	temp = []
