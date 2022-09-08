@@ -2,6 +2,10 @@ from PIL import ImageGrab
 import cv2  
 import numpy as np
 
+def convert_pil_image_to_cv2(image):
+
+	return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+
 class ScreenImage:
 
 	def __init__(self):
@@ -26,7 +30,3 @@ class ScreenImage:
 	def draw_circle_at_coords(self, coords):
 
 		cv2.circle(self.opencv_image, (coords[1], coords[0]), 10, (255,0,0), 2)
-
-def convert_pil_image_to_cv2(image):
-
-	return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)

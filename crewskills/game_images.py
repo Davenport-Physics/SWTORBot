@@ -4,6 +4,7 @@ import cv2
 
 crew_images  = []
 skill_images = []
+misc_images  = []
 
 def init_game_images():
 
@@ -12,6 +13,7 @@ def init_game_images():
 
 	crew_images  = load_images("images/crew/")
 	skill_images = load_images("images/skills/")
+	misc_images  = load_images("images/misc/")
 
 def get_skill_images():
 
@@ -22,6 +24,11 @@ def get_crew_images():
 	
 	global crew_images
 	return crew_images
+
+def get_misc_images():
+
+	global misc_images
+	return misc_images
 
 def load_images(path):
 

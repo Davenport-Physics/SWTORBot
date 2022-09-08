@@ -1,6 +1,7 @@
 from game_images import init_game_images, get_skill_images, get_crew_images, Image
 from config import *
 from screenlib import ScreenImage
+from crewskills import get_available_crew_skills
 
 def main():
 
@@ -8,6 +9,7 @@ def main():
 	init_game_images()
 	test_screen_saving()
 	test_screen_sub_image_coords()
+	get_available_crew_skills()
 
 	return 0
 
