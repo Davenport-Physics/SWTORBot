@@ -3,37 +3,37 @@
 	"crew_skills" : [
 		
 		{
-			"crew_skill" : "bioanalysis",
+			"crew_skill_name" : "bioanalysis",
 			"icon": "bioanalysis.JPG",
 			"missions": true,
 			"affinity_points_given": false
 		},
 		{
-			"crew_skill" : "biochem",
+			"crew_skill_name" : "biochem",
 			"icon": "biochem.JPG",
 			"missions": true,
 			"affinity_points_given": false
 		},
 		{
-			"crew_skill": "diplomacy",
+			"crew_skill_name": "diplomacy",
 			"icon": "diplomacy.JPG",
 			"missions": true,
 			"affinity_points_given": true
 		},
 		{
-			"crew_skill": "scavenging",
+			"crew_skill_name": "scavenging",
 			"icon" : "scavenging.JPG",
 			"missions": true,
 			"affinity_points_given": false
 		},
 		{
-			"crew_skill": "underworld_trading",
+			"crew_skill_name": "underworld_trading",
 			"icon" : "underworld_trading.JPG",
 			"missions": true,
 			"affinity_points_given": true
 		},
 		{
-			"crew_skill": "armormech",
+			"crew_skill_name": "armormech",
 			"icon":"armormech.JPG",
 			"missions": false
 		}
