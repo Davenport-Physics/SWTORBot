@@ -36,3 +36,7 @@ class CrewSkill:
 
 		self.name   = name
 		self.coords = coords
+
+	def __str__(self):
+
+		return "CrewSkill(name = {}, coords = {})".format(self.name, self.coords)

@@ -7,11 +7,20 @@ def main():
 
 	init_config()
 	init_game_images()
-	test_screen_saving()
-	test_screen_sub_image_coords()
-	get_available_crew_skills()
+	test_functions()
 
 	return 0
+
+def test_functions():
+
+	test_screen_saving()
+	test_screen_sub_image_coords()
+	test_available_crew_skills()
+
+def test_available_crew_skills():
+
+	for crew_skill in get_available_crew_skills():
+		print(crew_skill)
 
 def test_screen_saving():
 
