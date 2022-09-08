@@ -19,7 +19,7 @@ def get_available_crew_skills():
 	if not crew_skills_panel_opened():
 		pyautogui.press('b')
 
-
+	
 
 
 	return 0

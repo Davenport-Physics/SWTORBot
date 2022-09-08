@@ -10,6 +10,7 @@ def init_game_images():
 
 	global crew_images
 	global skill_images
+	global misc_images
 
 	crew_images  = load_images("images/crew/")
 	skill_images = load_images("images/skills/")
@@ -32,6 +33,7 @@ def get_misc_images():
 
 def get_misc_image(image_name):
 
+	global misc_images
 	for img in misc_images:
 		if img.name == image_name:
 			return img
