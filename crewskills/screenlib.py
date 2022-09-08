@@ -30,8 +30,10 @@ class ScreenImage:
 		if max_val < 0.9:
 			return None
 
-		return np.unravel_index(result.argmax(), result.shape)
+		coords = np.unravel_index(result.argmax(), result.shape)
+
+		return (coords[1], coords[0])
 
 	def draw_circle_at_coords(self, coords):
 
-		cv2.circle(self.opencv_image, (coords[1], coords[0]), 10, (255,0,0), 2)
+		cv2.circle(self.opencv_image, coords, 10, (255,0,0), 2)
