@@ -7,7 +7,7 @@ def init_config():
 
 	global loaded_config
 
-	with fp as open("config.json"):
+	with open("config.json") as  fp:
 		loaded_config = json.load(fp)
 
 def get_config():

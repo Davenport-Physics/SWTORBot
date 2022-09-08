@@ -1,23 +1,19 @@
-from PIL import ImageGrab
 from game_images import load_game_images
+from screenlib import ScreenImage
+from config import *
 
 def main():
 
-	load_game_images()
-	img = get_screen()
-	save_screen(img)
+	init_config()
+	test_screen_saving()
 
 	return 0
 
+def test_screen_saving():
 
-def save_screen(img, location="test.jpg"):
+	screen_image = ScreenImage()
+	screen_image.save_image()
 
-	fp = open(location, "w+")
-	img.save(fp)
-	fp.close()
 
-def get_screen():
-
-	return ImageGrab.grab()
 
 main()
