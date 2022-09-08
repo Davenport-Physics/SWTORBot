@@ -26,14 +26,13 @@ def get_available_crew_skills():
 	for img in get_skill_images():
 		coords = screen_image.get_coords_of_sub_image(img.opencv_image)
 		if coords is not None:
-			available_skills.append(img.name.replace(".JPG", ""))
+			available_skills.append(CrewSkill(img.name.replace(".JPG", ""), coords))
 
 	return available_skills
 
 class CrewSkill:
 
-	def __init__(self):
-		return 0
+	def __init__(self, name, coords):
 
-	def set_available_crew_skills(self):
-		return 0
+		self.name   = name
+		self.coords = coords
