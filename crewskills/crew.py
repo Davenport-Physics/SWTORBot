@@ -32,7 +32,7 @@ def get_available_crew():
 
 	scroll_times = 1
 	if setup_mouse_scrolling(screen_image):
-		scroll_times = 5
+		scroll_times = 6
 
 	crew = []
 	for i in range(scroll_times):
