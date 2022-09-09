@@ -1,11 +1,12 @@
 
 import pyautogui
 import time
-from game_images import init_game_images, get_skill_images, get_crew_images, Image
+from game_images import init_game_images, get_skill_images, get_crew_images, get_misc_image, Image
 from config import *
 from screenlib import ScreenImage
 from crewskills import get_available_crew_skills
 from crew import get_available_crew
+from character import get_character_level
 
 def main():
 
@@ -21,6 +22,7 @@ def test_functions():
 	test_screen_sub_image_coords()
 	test_available_crew_skills()
 	test_available_crew_members()
+	get_character_level()
 
 def test_available_crew_members():
 
