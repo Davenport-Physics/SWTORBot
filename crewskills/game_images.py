@@ -53,7 +53,7 @@ def load_images(path):
 class Image():
 
 	def __init__(self, name, opencv_image):
-		
+
 		self.raw_name     = name
-		self.name         = name.replace(".JPG", "")
+		self.name         = name.replace(".JPG", "").replace(".jpg", "")
 		self.opencv_image = opencv_image

@@ -27,7 +27,7 @@ class ScreenImage:
 		result = cv2.matchTemplate(sub_image, self.opencv_image, cv2.TM_CCOEFF_NORMED)
 		min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-		if max_val < 0.9:
+		if max_val < 0.85:
 			return None
 
 		coords = np.unravel_index(result.argmax(), result.shape)
