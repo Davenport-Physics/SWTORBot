@@ -42,6 +42,8 @@ def get_available_crew():
 		pyautogui.scroll(-200)
 		time.sleep(0.5)
 
+	pyautogui.scroll(1200)
+
 	return crew
 
 class Crew:
