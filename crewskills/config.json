@@ -46,35 +46,35 @@
 	"max_concurrent_missions" : [
 		
 		{
-			"max_level": 10,
+			"min_level": 10,
 			"concurrent_missions": 1
 		},
 		{
-			"max_level": 20,
+			"min_level": 20,
 			"concurrent_missions": 2
 		},
 		{
-			"max_level": 30,
+			"min_level": 30,
 			"concurrent_missions": 3
 		},
 		{
-			"max_level": 40,
+			"min_level": 40,
 			"concurrent_missions": 4
 		},
 		{
-			"max_level": 50,
+			"min_level": 50,
 			"concurrent_missions": 5
 		},
 		{
-			"max_level": 55,
+			"min_level": 55,
 			"concurrent_missions": 6
 		},
 		{
-			"max_level": 60,
+			"min_level": 60,
 			"concurrent_missions": 7
 		},
 		{
-			"max_level": 65,
+			"min_level": 65,
 			"concurrent_missions": 8
 		}
 
