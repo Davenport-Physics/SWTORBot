@@ -13,6 +13,7 @@ def get_character_level():
 
 	level_crop = screen_image.get_cropped_image(coords[0], coords[1], coords[0]+80, coords[1]+40)
 	text = level_crop.get_ocr_text()
-	print(text)
+
+	return int(text[0])
 
 
