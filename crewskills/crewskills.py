@@ -7,7 +7,7 @@ from config import get_config
 def crew_skills_panel_opened():
 
 	screen_image      = ScreenImage()
-	crew_skills_image = get_misc_image("crewskills.JPG")
+	crew_skills_image = get_misc_image("crewskills")
 	coords = screen_image.get_coords_of_sub_image(crew_skills_image.opencv_image)
 
 	return coords is not None
@@ -29,7 +29,7 @@ def get_available_crew_skills():
 	for img in get_skill_images():
 		coords = screen_image.get_coords_of_sub_image(img.opencv_image)
 		if coords is not None:
-			available_skills.append(CrewSkill(img.name.replace(".JPG", ""), coords))
+			available_skills.append(CrewSkill(img.name, coords))
 
 	return available_skills
 
