@@ -7,6 +7,7 @@ from screenlib import ScreenImage
 from crewskills import get_available_crew_skills
 from crew import get_available_crew
 from character import get_character_level
+from grades import select_grade
 
 def main():
 
@@ -21,8 +22,9 @@ def test_functions():
 	test_screen_saving()
 	test_screen_sub_image_coords()
 	test_available_crew_skills()
-	test_available_crew_members()
+	#test_available_crew_members()
 	get_character_level()
+	test_grade_selection()
 
 def test_available_crew_members():
 
@@ -57,6 +59,10 @@ def test_screen_sub_image_coords():
 			screen_image.draw_circle_at_coords(coords)
 
 	screen_image.save_image("crude_circle.jpg")
+
+def test_grade_selection():
+
+	select_grade(10)
 
 
 main()
