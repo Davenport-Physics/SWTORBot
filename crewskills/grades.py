@@ -16,4 +16,5 @@ def select_grade(grade):
 	pyautogui.click()
 	pyautogui.moveTo(coords[0]+10, coords[1]+20 + 17*grade)
 	pyautogui.click()
+	pyautogui.moveTo(coords[0], coords[1])
 
