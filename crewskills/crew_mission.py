@@ -16,16 +16,17 @@ def get_next_available_mission():
 	mission_image = screen_image.get_cropped_image(p0[0], p0[1], p1[0], p1[1])
 	mission_image.save_image("mission_image.jpg")
 
-	return CrewMission(mission_image)
+	return CrewMission(mission_image, coords)
 
 class CrewMission:
 
-	def __init__(self, mission_image):
+	def __init__(self, mission_image, mission_coords):
 		
 		self.mission_image = mission_image
 
-		cost_image       = get_misc_image("cost")
-		self.ref_coords = self.mission_image.get_coords_of_sub_image(cost_image.opencv_image)
+		cost_image          = get_misc_image("cost")
+		self.ref_coords     = self.mission_image.get_coords_of_sub_image(cost_image.opencv_image)
+		self.mission_coords = mission_coords
 
 		self.init_cost()
 		self.init_time()

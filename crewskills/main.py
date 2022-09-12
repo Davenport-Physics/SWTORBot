@@ -64,11 +64,12 @@ def test_screen_sub_image_coords():
 
 def test_grade_selection():
 
-	select_grade(10)
+	select_grade(5)
 
 def test_crew_mission():
 
-	get_next_available_mission()
+	mission = get_next_available_mission()
+	print("Mission information: time(s) -> {} cost: -> {}".format(mission.mission_time, mission.mission_cost))
 
 
 main()
