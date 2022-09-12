@@ -64,7 +64,7 @@ def test_screen_sub_image_coords():
 
 def test_grade_selection():
 
-	select_grade(1)
+	select_grade(10)
 
 def test_crew_mission():
 
