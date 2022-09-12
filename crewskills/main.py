@@ -60,8 +60,6 @@ def test_screen_sub_image_coords():
 		if coords is not None:
 			screen_image.draw_circle_at_coords(coords)
 
-	screen_image.save_image("crude_circle.jpg")
-
 def test_grade_selection():
 
 	select_grade(5)
