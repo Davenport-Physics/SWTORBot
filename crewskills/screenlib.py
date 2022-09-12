@@ -47,7 +47,7 @@ class ScreenImage:
 
 		return ScreenImage(self.image.crop((left, top, right, bottom)))
 
-	def get_ocr_text(self):
+	def get_ocr_text(self, config='--psm 13 --oem 3 -c tessedit_char_whitelist=0123456789'):
 
 		gray_image = cv2.cvtColor(self.opencv_image, cv2.COLOR_BGR2GRAY)
 		ret, thresh1 = cv2.threshold(gray_image, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
@@ -62,7 +62,7 @@ class ScreenImage:
 			x, y, w, h = cv2.boundingRect(cnt)
 			rect = cv2.rectangle(gray_image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 			cropped = gray_image[y:y + h, x:x + w]
-			text.append(pytesseract.image_to_string(cropped, config='--psm 13 --oem 3 -c tessedit_char_whitelist=0123456789'))
+			text.append(pytesseract.image_to_string(cropped, config=config))
 
 		cv2.imwrite("gray_ocr_image.jpg", gray_image)
 
