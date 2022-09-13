@@ -1,0 +1,24 @@
+
+CREATE TABLE IF NOT EXISTS AcceptedMissions
+(
+	AcceptedMissionId INTEGER PRIMARY KEY,
+	MissionElapse INTEGER NOT NULL,
+	MissionCost INTEGER NOT NULL,
+	Successful BOOL NOT NULL DEFAULT(0)
+);
+
+CREATE TABLE IF NOT EXISTS Items
+(
+	ItemId INTEGER PRIMARY KEY,
+	ItemName VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS RetrievedItems
+(
+	RetrievedItemsId INTEGER PRIMARY KEY,
+	AcceptedMissionId INTEGER NOT NULL,
+	ItemId INTEGER NOT NULL,
+	Amount INTEGER NOT NULL,
+	FOREIGN KEY(ItemId) REFERENCES Items(ItemId),
+	FOREIGN KEY(AcceptedMissionId) REFERENCES AcceptedMissions(AcceptedMissionId)
+);
