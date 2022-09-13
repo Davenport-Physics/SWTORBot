@@ -14,7 +14,7 @@ def get_next_available_mission():
 	p0 = (coords[0]-309, coords[1]-14)
 	p1 = (p0[0]+400, p0[1]+149)
 	mission_image = screen_image.get_cropped_image(p0[0], p0[1], p1[0], p1[1])
-	mission_image.save_image("mission_image.jpg")
+	#mission_image.save_image("mission_image.jpg")
 
 	return CrewMission(mission_image, coords)
 

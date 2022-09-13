@@ -40,7 +40,7 @@ def get_available_crew():
 			if len(list(filter(lambda temp : temp.name == crew_segment.name, crew))) == 0:
 				crew.append(crew_segment)
 		pyautogui.scroll(-200)
-		time.sleep(0.5)
+		time.sleep(0.25)
 
 	pyautogui.scroll(1200)
 
