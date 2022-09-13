@@ -9,11 +9,13 @@ from crew import get_available_crew
 from character import get_character_level
 from grades import select_grade
 from crew_mission import get_next_available_mission
+from storage import *
 
 def main():
 
 	init_config()
 	init_game_images()
+	init_database()
 	test_functions()
 
 	return 0
@@ -67,6 +69,7 @@ def test_grade_selection():
 def test_crew_mission():
 
 	mission = get_next_available_mission()
+	save_mission_details(mission)
 	print("Mission information: time(s) -> {} cost: -> {}".format(mission.mission_time, mission.mission_cost))
 
 

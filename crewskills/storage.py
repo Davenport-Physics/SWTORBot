@@ -11,10 +11,10 @@ def init_database():
 
 	con = sqlite3.connect("crewskills.db")
 	cur = con.cursor()
-	with open("/sql/tables.sql", "r") as fp:
-		sql_commands = file.read()
+	with open("./sql/tables.sql", "r") as fp:
+		sql_commands = fp.read()
 
-	cur.execute(text)
+	cur.executescript(sql_commands)
 	con.commit()
 
 def save_mission_details(mission):
@@ -22,3 +22,8 @@ def save_mission_details(mission):
 	sql_command = """INSERT INTO AcceptedMissions(MissionElapse, MissionCost) VALUES (?, ?)"""
 	cur.execute(sql_command, (mission.mission_time, mission.mission_cost))
 	con.commit()
+
+	return cur.lastrowid
+
+def update_mission_details(mission_id):
+	raise "update_mission_details: STUB"
