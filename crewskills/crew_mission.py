@@ -19,7 +19,7 @@ def get_next_available_mission():
 
 	return CrewMission(mission_image, coords)
 
-def manuever_mouse_to_companion_dropdown():
+def manuever_mouse_to_companion_dropdown(coords):
 
 	pyautogui.moveTo(coords[0], coords[1])
 	time.sleep(0.1)
@@ -27,7 +27,7 @@ def manuever_mouse_to_companion_dropdown():
 	time.sleep(0.1)
 	pyautogui.moveTo(coords[0]+35, coords[1]+50)
 
-def select_crew_member_for_mission(crew_member):
+def select_crew_member_for_mission(crew_member="Gault"):
 
 	screen_image = ScreenImage()
 	companion_dropdown_image = get_misc_image("companion_dropdown")
@@ -36,8 +36,9 @@ def select_crew_member_for_mission(crew_member):
 	if coords is None:
 		raise "Unable to find companion dropdown menu"
 
-	manuever_mouse_to_companion_dropdown()
-	
+	manuever_mouse_to_companion_dropdown(coords)
+	screen_image.get_ocr_raw_coords()
+
 
 
 

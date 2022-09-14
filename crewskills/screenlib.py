@@ -49,6 +49,7 @@ class ScreenImage:
 
 	def get_ocr_text(self, config='--psm 13 --oem 3 -c tessedit_char_whitelist=0123456789'):
 
+
 		gray_image = cv2.cvtColor(self.opencv_image, cv2.COLOR_BGR2GRAY)
 		ret, thresh1 = cv2.threshold(gray_image, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
 		rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
@@ -64,7 +65,28 @@ class ScreenImage:
 			cropped = gray_image[y:y + h, x:x + w]
 			text.append(pytesseract.image_to_string(cropped, config=config))
 
-		cv2.imwrite("gray_ocr_image.jpg", gray_image)
-
-
+		#cv2.imwrite("gray_ocr_image.jpg", gray_image)
 		return text
+
+	def get_ocr_in_range(self, x1, y1, x2, y2):
+
+		text = pytesseract.image_to_boxes(self.opencv_image)
+
+		in_range_text = []
+		for char in text:
+			in_range = True
+			if char[1] < x1 or char[1] > x2:
+				in_range = False
+			elif char[2] < y1 or char[2] > y2:
+				in_range = False
+
+			if in_range:
+				in_range_text.append(char)
+
+		return in_range_text
+
+	def get_words_in_range(self, x1, y1, x2, y2):
+
+		in_range_text = self.get_ocr_in_range(x1, y1, x2, y2)
+		raise "get_words_in_range: Not Complete"
+
