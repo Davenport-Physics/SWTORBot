@@ -44,38 +44,37 @@
 		"mission_maximum_delay": 1250
 	},
 	"max_concurrent_missions" : [
-		
 		{
-			"min_level": 10,
-			"concurrent_missions": 1
-		},
-		{
-			"min_level": 20,
-			"concurrent_missions": 2
-		},
-		{
-			"min_level": 30,
-			"concurrent_missions": 3
-		},
-		{
-			"min_level": 40,
-			"concurrent_missions": 4
-		},
-		{
-			"min_level": 50,
-			"concurrent_missions": 5
-		},
-		{
-			"min_level": 55,
-			"concurrent_missions": 6
+			"min_level": 65,
+			"concurrent_missions": 8
 		},
 		{
 			"min_level": 60,
 			"concurrent_missions": 7
 		},
 		{
-			"min_level": 65,
-			"concurrent_missions": 8
+			"min_level": 55,
+			"concurrent_missions": 6
+		},
+		{
+			"min_level": 50,
+			"concurrent_missions": 5
+		},
+		{
+			"min_level": 40,
+			"concurrent_missions": 4
+		},
+		{
+			"min_level": 30,
+			"concurrent_missions": 3
+		},
+		{
+			"min_level": 20,
+			"concurrent_missions": 2
+		},
+		{
+			"min_level": 10,
+			"concurrent_missions": 1
 		}
 
 	]

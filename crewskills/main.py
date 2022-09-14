@@ -11,14 +11,51 @@ from grades import select_grade
 from crew_mission import get_next_available_mission, select_crew_member_for_mission, select_mission, send_companion
 from storage import *
 
+
 def main():
 
 	init_config()
 	init_game_images()
 	init_database()
-	test_functions()
+	#test_functions()
 
+	crew_skill_runner = CrewSkillRunner()
+	crew_skill_runner.start()
 	return 0
+
+
+class CrewSkillRunner:
+
+	def __init__(self):
+
+		self.crew_skills             = get_available_crew_skills()
+		self.crew_members            = get_available_crew()
+		self.character_level         = get_character_level()
+		self.max_concurrent_missions = get_max_runnable_missions(self.character_level)
+		self.ongoing_missions_count  = 0
+		self.crew_skill_to_automate  = get_player_config()["crew_skill_to_auto"]
+		self.open_mission_window()
+
+	def open_mission_window(self):
+
+		for crew_skill in self.crew_skills:
+			if crew_skill.name == self.crew_skill_to_automate:
+				pyautogui.moveTo(crew_skill.coords[0] + 2, crew_skill.coords[1] + 2)
+				pyautogui.click()
+				break
+
+	def start(self):
+
+		while True:
+			self.loop()
+			time.sleep(1.0)
+
+	def loop(self):
+
+		raise "Nothing"
+
+
+
 
 def test_functions():
 
