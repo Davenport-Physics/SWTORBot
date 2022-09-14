@@ -31,22 +31,11 @@ def manuever_mouse_to_companion_dropdown(coords):
 def get_crew_member_name(x1, y1):
 
 	screen_image = ScreenImage()
-	#cropped = screen_image.get_cropped_image(x1-310, y1-29, x1-200, y1)
-	#cropped.save_image("cropped_image.jpg")
-	#name = cropped.get_ocr_text("--psm 13 --oem 3")[0].lower().replace(" ", "_")
-	#return name
+	cropped = screen_image.get_cropped_image(x1-310, y1-29, x1-200, y1)
+	cropped.save_image("cropped_image.jpg")
+	name = cropped.get_ocr_text("--psm 13 --oem 3")[0].lower().replace(" ", "_")
+	return name
 
-	cropped = screen_image.get_cropped_image(x1-365, y1-22, x1-315, y1+28)
-	for crew_image in get_crew_images():
-
-		height, width, channels = cropped.opencv_image.shape
-		resized_image = cv2.resize(crew_image.opencv_image, (width, height), interpolation = cv2.INTER_AREA)
-		cv2.imwrite("resized_image.jpg", resized_image)
-		coords = cropped.get_coords_of_sub_image(resized_image, 0.4)
-		if coords is not None:
-			return crew_image.name
-
-	#cropped.save_image("cropped_image.jpg")
 	return "None"
 
 

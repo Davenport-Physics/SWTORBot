@@ -32,10 +32,6 @@ class ScreenImage:
 		result = cv2.matchTemplate(sub_image, self.opencv_image, cv2.TM_CCOEFF_NORMED)
 		min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-		if threshold != 0.85:
-			print(min_val)
-			print(max_val)
-
 		if max_val < threshold:
 			return None
 
