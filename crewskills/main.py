@@ -33,13 +33,13 @@ class CrewSkillRunner:
 		self.character_level         = get_character_level()
 		self.max_concurrent_missions = get_max_runnable_missions(self.character_level)
 		self.ongoing_missions_count  = 0
-		self.crew_skill_to_automate  = get_player_config()["crew_skill_to_auto"]
+		self.player_config           = get_player_config()
 		self.open_mission_window()
 
 	def open_mission_window(self):
 
 		for crew_skill in self.crew_skills:
-			if crew_skill.name == self.crew_skill_to_automate:
+			if crew_skill.name == self.player_config["crew_skill_to_auto"]:
 				pyautogui.moveTo(crew_skill.coords[0] + 2, crew_skill.coords[1] + 2)
 				pyautogui.click()
 				break
