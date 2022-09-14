@@ -1,7 +1,8 @@
 import pyautogui
 from screenlib import ScreenImage
-from game_images import get_misc_image
+from game_images import get_misc_image, get_crew_images
 import time
+import cv2  
 
 def get_next_available_mission():
 
@@ -27,6 +28,28 @@ def manuever_mouse_to_companion_dropdown(coords):
 	time.sleep(0.1)
 	pyautogui.moveTo(coords[0]+35, coords[1]+50)
 
+def get_crew_member_name(x1, y1):
+
+	screen_image = ScreenImage()
+	#cropped = screen_image.get_cropped_image(x1-310, y1-29, x1-200, y1)
+	#cropped.save_image("cropped_image.jpg")
+	#name = cropped.get_ocr_text("--psm 13 --oem 3")[0].lower().replace(" ", "_")
+	#return name
+
+	cropped = screen_image.get_cropped_image(x1-365, y1-22, x1-315, y1+28)
+	for crew_image in get_crew_images():
+
+		height, width, channels = cropped.opencv_image.shape
+		resized_image = cv2.resize(crew_image.opencv_image, (width, height), interpolation = cv2.INTER_AREA)
+		cv2.imwrite("resized_image.jpg", resized_image)
+		coords = cropped.get_coords_of_sub_image(resized_image, 0.4)
+		if coords is not None:
+			return crew_image.name
+
+	#cropped.save_image("cropped_image.jpg")
+	return "None"
+
+
 def select_crew_member_for_mission(crew_member_index):
 
 	screen_image = ScreenImage()
@@ -37,15 +60,22 @@ def select_crew_member_for_mission(crew_member_index):
 		raise "Unable to find companion dropdown menu"
 
 	manuever_mouse_to_companion_dropdown(coords)
+	x1 = 0
+	y1 = 0
 	if crew_member_index < 3:
-		pyautogui.moveTo(coords[0], coords[1] + 50 + 75*crew_member_index)
-		pyautogui.click()
+		x1 = coords[0]
+		y1 = coords[1] + 70 + 65*crew_member_index
 	else:
 		for i in range(crew_member_index-2):
 			pyautogui.scroll(-200)
 			time.sleep(0.1)
-		pyautogui.moveTo(coords[0], coords[1] + 50 + 75*2)
-		pyautogui.click()
+		x1 = coords[0]
+		y1 = coords[1] + 70 + 65*2
+	
+	pyautogui.moveTo(x1, y1)
+	crew_member_name = get_crew_member_name(x1, y1)
+	print(crew_member_name)
+	return crew_member_name
 
 def select_mission(mission):
 

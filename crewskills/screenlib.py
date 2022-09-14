@@ -27,12 +27,16 @@ class ScreenImage:
 		with open(location, "w+") as fp :
 			self.image.save(fp)
 
-	def get_coords_of_sub_image(self, sub_image):
+	def get_coords_of_sub_image(self, sub_image, threshold=0.85):
 
 		result = cv2.matchTemplate(sub_image, self.opencv_image, cv2.TM_CCOEFF_NORMED)
 		min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-		if max_val < 0.85:
+		if threshold != 0.85:
+			print(min_val)
+			print(max_val)
+
+		if max_val < threshold:
 			return None
 
 		coords = np.unravel_index(result.argmax(), result.shape)
@@ -65,7 +69,6 @@ class ScreenImage:
 			cropped = gray_image[y:y + h, x:x + w]
 			text.append(pytesseract.image_to_string(cropped, config=config))
 
-		#cv2.imwrite("gray_ocr_image.jpg", gray_image)
 		return text
 
 	def get_ocr_in_range(self, x1, y1, x2, y2):

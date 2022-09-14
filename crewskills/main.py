@@ -17,10 +17,10 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	#test_functions()
+	test_functions()
 
-	crew_skill_runner = CrewSkillRunner()
-	crew_skill_runner.start()
+	#crew_skill_runner = CrewSkillRunner()
+	#crew_skill_runner.start()
 	return 0
 
 
@@ -111,9 +111,9 @@ def test_crew_mission():
 	mission = get_next_available_mission()
 	save_mission_details(mission)
 	print("Mission information: time(s) -> {} cost: -> {}".format(mission.mission_time, mission.mission_cost))
-	select_crew_member_for_mission(3)
-	select_mission(mission)
-	send_companion()
+	select_crew_member_for_mission(0)
+	#select_mission(mission)
+	#send_companion()
 
 
 main()
