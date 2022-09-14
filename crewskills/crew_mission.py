@@ -60,7 +60,6 @@ def select_crew_member_for_mission(crew_member_index):
 	
 	pyautogui.moveTo(x1, y1)
 	crew_member_name = get_crew_member_name(x1, y1)
-	print(crew_member_name)
 	return crew_member_name
 
 def select_mission(mission):
