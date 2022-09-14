@@ -29,11 +29,12 @@ class CrewSkillRunner:
 	def __init__(self):
 
 		self.crew_skills             = get_available_crew_skills()
-		self.crew_members            = get_available_crew()
+		self.num_crew_members        = len(get_available_crew())
 		self.character_level         = get_character_level()
 		self.max_concurrent_missions = get_max_runnable_missions(self.character_level)
 		self.ongoing_missions_count  = 0
 		self.player_config           = get_player_config()
+		self.current_missions        = []
 		self.open_mission_window()
 
 	def open_mission_window(self):
@@ -52,9 +53,31 @@ class CrewSkillRunner:
 
 	def loop(self):
 
+		self.finish_missions()
+		self.schedule_missions()
+
+	def finish_missions(self):
+
+		for i in range(len(current_missions)):
+			raise "Nothing"
+
 		raise "Nothing"
 
+	def schedule_missions(self):
 
+		mission_diff = self.max_concurrent_missions - self.ongoing_missions_count
+		for i in range(mission_diff):
+			raise "Nothing"
+
+
+class Assignments:
+
+	def __init__(self, mission, crew_member):
+		self.mission = mission
+		self.crew_member = crew_member
+		self.time_until_completion = time.time() + mission.mission_time
+
+	
 
 
 def test_functions():
