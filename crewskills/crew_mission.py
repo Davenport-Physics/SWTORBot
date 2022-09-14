@@ -47,6 +47,24 @@ def select_crew_member_for_mission(crew_member_index):
 		pyautogui.moveTo(coords[0], coords[1] + 50 + 75*2)
 		pyautogui.click()
 
+def select_mission(mission):
+
+	pyautogui.moveTo(mission.mission_coords[0]+10, mission.mission_coords[1]+10)
+	pyautogui.click()
+
+def send_companion():
+
+	screen_image = ScreenImage()
+	send_companion_image = get_misc_image("send_companion")
+	coords = screen_image.get_coords_of_sub_image(send_companion_image.opencv_image)
+
+	if coords is None:
+		raise "Unable to find send companion image"
+
+	pyautogui.moveTo(coords[0]+10, coords[1]+10)
+	pyautogui.click()
+
+
 
 class CrewMission:
 

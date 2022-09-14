@@ -8,7 +8,7 @@ from crewskills import get_available_crew_skills
 from crew import get_available_crew
 from character import get_character_level
 from grades import select_grade
-from crew_mission import get_next_available_mission, select_crew_member_for_mission
+from crew_mission import get_next_available_mission, select_crew_member_for_mission, select_mission, send_companion
 from storage import *
 
 def main():
@@ -74,7 +74,9 @@ def test_crew_mission():
 	mission = get_next_available_mission()
 	save_mission_details(mission)
 	print("Mission information: time(s) -> {} cost: -> {}".format(mission.mission_time, mission.mission_cost))
-	select_crew_member_for_mission(4)
+	select_crew_member_for_mission(3)
+	select_mission(mission)
+	send_companion()
 
 
 main()
