@@ -77,6 +77,12 @@
 			"concurrent_missions": 1
 		}
 
+	],
+	"ocr_corrections": [
+		{
+			"text": "anconsontesl",
+			"correction": "aric_jorgan"
+		}
 	]
 
 }

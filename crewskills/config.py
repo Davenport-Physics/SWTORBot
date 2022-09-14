@@ -21,6 +21,15 @@ def get_config():
 	global loaded_config
 	return loaded_config
 
+def get_ocr_corrected_text(text):
+
+	global loaded_config
+	for entry in loaded_config["ocr_corrections"]:
+		if entry["text"] == text:
+			return entry["correction"]
+
+	return text
+
 def get_player_config():
 
 	global player_config

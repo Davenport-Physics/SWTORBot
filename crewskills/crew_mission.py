@@ -1,8 +1,8 @@
 import pyautogui
 from screenlib import ScreenImage
 from game_images import get_misc_image, get_crew_images
+from config import get_ocr_corrected_text
 import time
-import cv2  
 
 def get_next_available_mission():
 
@@ -33,11 +33,8 @@ def get_crew_member_name(x1, y1):
 	screen_image = ScreenImage()
 	cropped = screen_image.get_cropped_image(x1-310, y1-29, x1-200, y1)
 	cropped.save_image("cropped_image.jpg")
-	name = cropped.get_ocr_text("--psm 13 --oem 3")[0].lower().replace(" ", "_")
-	return name
-
-	return "None"
-
+	name = cropped.get_ocr_text("--psm 13 --oem 3")[0].lower().replace(" ", "_").replace("\n", "")
+	return get_ocr_corrected_text(name)
 
 def select_crew_member_for_mission(crew_member_index):
 
