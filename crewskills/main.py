@@ -25,15 +25,18 @@ def test_functions():
 	test_screen_saving()
 	test_screen_sub_image_coords()
 	test_available_crew_skills()
-	test_available_crew_members()
+	crew_members = test_available_crew_members()
 	get_character_level()
 	test_grade_selection()
 	test_crew_mission()
 
 def test_available_crew_members():
 
-	for crew in get_available_crew():
+	crew_members = get_available_crew()
+	for crew in crew_members:
 		print(crew)
+
+	return crew_members
 
 def test_available_crew_skills():
 
@@ -71,7 +74,7 @@ def test_crew_mission():
 	mission = get_next_available_mission()
 	save_mission_details(mission)
 	print("Mission information: time(s) -> {} cost: -> {}".format(mission.mission_time, mission.mission_cost))
-	select_crew_member_for_mission("")
+	select_crew_member_for_mission(4)
 
 
 main()
