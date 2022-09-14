@@ -6,7 +6,7 @@ from config import *
 from screenlib import ScreenImage
 from crewskills import get_available_crew_skills
 from crew import get_available_crew
-from character import get_character_level
+from character import get_character_level, get_max_runnable_missions
 from grades import select_grade
 from crew_mission import get_next_available_mission, select_crew_member_for_mission, select_mission, send_companion
 from storage import *

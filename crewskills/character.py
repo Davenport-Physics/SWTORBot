@@ -22,7 +22,7 @@ def get_max_runnable_missions(character_level):
 
 	config = get_config()
 	for max_concurrent_missions in config["max_concurrent_missions"]:
-		if max_concurrent_missions.min_level <= character_level:
-			return max_concurrent_missions.concurrent_missions
+		if max_concurrent_missions["min_level"] <= character_level:
+			return max_concurrent_missions["concurrent_missions"]
 
 	raise "Unable to determine max mission count"
