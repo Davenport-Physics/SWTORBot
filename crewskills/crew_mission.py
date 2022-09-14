@@ -58,8 +58,9 @@ def select_crew_member_for_mission(crew_member_index):
 		x1 = coords[0]
 		y1 = coords[1] + 70 + 65*2
 	
-	pyautogui.moveTo(x1, y1)
 	crew_member_name = get_crew_member_name(x1, y1)
+	pyautogui.moveTo(x1, y1)
+	pyautogui.click()
 	return crew_member_name
 
 def select_mission(mission):
