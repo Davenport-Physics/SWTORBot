@@ -10,6 +10,7 @@ from character import get_character_level, get_max_runnable_missions
 from grades import select_grade
 from crew_mission import get_next_available_mission, select_crew_member_for_mission, select_mission, send_companion
 from storage import *
+from random import uniform
 
 
 def main():
@@ -62,9 +63,9 @@ class CrewSkillRunner:
 		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
 
 			select_grade(current_grade)
-			time.sleep(0.5)
+			time.sleep(uniform(0.25, 1.0))
 			crew_member = select_crew_member_for_mission(i)
-			time.sleep(0.25)
+			time.sleep(uniform(0.25, 1.0))
 			try:
 				mission = get_next_available_mission()
 				self.current_missions.append(Assignment(mission, crew_member))
