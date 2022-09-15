@@ -62,5 +62,5 @@ def save_retrieved_items(mission_id, item_name, amount):
 	global cur
 
 	sql_command = "INSERT INTO RetrievedItems(AcceptedMissionId, ItemId, Amount) VALUES (?, ?, ?)"
-	cur.execute(sql_command, mission_id, item_id, amount)
+	cur.execute(sql_command, (mission_id, item_id, amount))
 	con.commit()

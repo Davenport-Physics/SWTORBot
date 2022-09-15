@@ -19,12 +19,12 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	test_storage()
+	#test_storage()
 	#test_crew_mission_complete()
 	#test_functions()
 
-	#crew_skill_runner = CrewSkillRunner()
-	#crew_skill_runner.start()
+	crew_skill_runner = CrewSkillRunner()
+	crew_skill_runner.start()
 	return 0
 
 
@@ -91,7 +91,7 @@ class CrewSkillRunner:
 		if not self.reset_required:
 			return
 
-		finished_assignments = list(filter(lambda assignment: assignments.finished_and_stored, self.current_missions))
+		finished_assignments = list(filter(lambda assignment: assignment.finished_and_stored, self.current_missions))
 		if len(finished_assignments) == min(self.num_crew_members, self.max_concurrent_missions):
 			self.reset_required   = False
 			self.current_missions = []
