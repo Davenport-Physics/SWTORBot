@@ -90,7 +90,7 @@ class CrewSkillRunner:
 		if not self.reset_required:
 			return
 
-		finished_assignments = filter(lambda assignment: assignments.finished_and_stored, self.current_missions)
+		finished_assignments = list(filter(lambda assignment: assignments.finished_and_stored, self.current_missions))
 		if len(finished_assignments) == min(self.num_crew_members, self.max_concurrent_missions):
 			self.reset_required   = False
 			self.current_missions = []
@@ -99,7 +99,7 @@ class CrewSkillRunner:
 
 	def finish_missions(self):
 
-		finished_assignments = filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions)
+		finished_assignments = list(filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions))
 		finished_missions    = []
 		while True:
 			time.sleep(uniform(0.5, 1.0))
@@ -109,7 +109,7 @@ class CrewSkillRunner:
 				break
 
 		for assignment in finished_assignments:
-			relevant_missions = filter(lambda mission: assignment.crew_member_name in mission.description, finished_missions)
+			relevant_missions = list(filter(lambda mission: assignment.crew_member_name in mission.description, finished_missions))
 			assignment.finish(relevant_missions)
 
 
@@ -120,7 +120,7 @@ class CrewSkillRunner:
 
 		grade_selector = GradeSelector(self.player_config["grades_to_auto"])
 		current_grade  = grade_selector.get_next_grade()
-		assignments    = filter(lambda crew: crew.finished_and_stored, self.current_missions)
+		assignments    = list(filter(lambda crew: crew.finished_and_stored, self.current_missions))
 		for i in range(len(assignments)):
 
 			select_grade(current_grade)
@@ -153,7 +153,7 @@ class GradeSelector:
 	def get_next_grade(self):
 
 		current_grade = max(self.grades)
-		self.grades = filter(lambda x: x != current_grade, self.grades)
+		self.grades = list(filter(lambda x: x != current_grade, self.grades))
 		return current_grade
 
 
@@ -166,6 +166,7 @@ class Assignment:
 		self.crew_member_name      = crew_member_name
 		self.dropdown_index        = dropdown_index
 		self.time_until_completion = time.time() + mission.mission_time
+		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission)
 
 	def set_new_mission(self, mission):
