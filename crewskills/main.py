@@ -19,11 +19,12 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
+	test_storage()
 	#test_crew_mission_complete()
 	#test_functions()
 
-	crew_skill_runner = CrewSkillRunner()
-	crew_skill_runner.start()
+	#crew_skill_runner = CrewSkillRunner()
+	#crew_skill_runner.start()
 	return 0
 
 
@@ -247,5 +248,9 @@ def test_crew_mission_complete():
 	pyautogui.moveTo(10, 10)
 	pyautogui.doubleClick()
 	print(get_mission_complete())
+
+def test_storage():
+
+	print(insert_item_name_if_needed("Desh"))
 
 main()

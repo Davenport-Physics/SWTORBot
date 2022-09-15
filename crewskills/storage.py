@@ -42,13 +42,13 @@ def insert_item_name_if_needed(item_name):
 	global con
 	global cur
 
-	sql_command = "SELECT ItemId FROM Items WHERE ItemName = ?"
-	temp = con.execute(sql_command, (item_name)).fetchone()
+	sql_command = "SELECT ItemId FROM Items WHERE ItemName = '{}'".format(item_name)
+	temp = cur.execute(sql_command).fetchone()
 	if temp is not None:
 		return temp[0]
 
-	sql_command = "INSERT INTO Items(ItemName) VALUES (?)"
-	cur.execute(sql_command, (item_name))
+	sql_command = "INSERT INTO Items(ItemName) VALUES ('{}')".format(item_name)
+	cur.execute(sql_command)
 	con.commit()
 		
 	return cur.lastrowid
