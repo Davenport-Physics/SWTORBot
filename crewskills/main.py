@@ -19,11 +19,11 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	test_crew_mission_complete()
+	#test_crew_mission_complete()
 	#test_functions()
 
-	#crew_skill_runner = CrewSkillRunner()
-	#crew_skill_runner.start()
+	crew_skill_runner = CrewSkillRunner()
+	crew_skill_runner.start()
 	return 0
 
 
@@ -55,7 +55,7 @@ class CrewSkillRunner:
 
 		while True:
 			time.sleep(1.0)
-			#self.loop()
+			self.loop()
 
 	def set_first_missions(self):
 
@@ -70,7 +70,7 @@ class CrewSkillRunner:
 			time.sleep(uniform(0.25, 1.0))
 			try:
 				mission = get_next_available_mission()
-				self.current_missions.append(Assignment(mission, crew_member))
+				self.current_missions.append(Assignment(mission, crew_member, i))
 				select_mission(mission)
 				time.sleep(uniform(0.25, 1.0))
 				send_companion()
@@ -99,10 +99,18 @@ class CrewSkillRunner:
 
 	def finish_missions(self):
 
-		finished_missions = filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions)
-		while len(finish_missions) > 0:
+		finished_assignments = filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions)
+		finished_missions    = []
+		while True:
 			time.sleep(uniform(0.5, 1.0))
+			try:
+				finished_missions.append(get_mission_complete())
+			except:
+				break
 
+		for assignment in finished_assignments:
+			relevant_missions = filter(lambda mission: assignment.crew_member_name in mission.description, finished_missions)
+			assignment.finish(relevant_missions)
 
 
 	def schedule_missions(self):
@@ -158,12 +166,21 @@ class Assignment:
 		self.crew_member_name      = crew_member_name
 		self.dropdown_index        = dropdown_index
 		self.time_until_completion = time.time() + mission.mission_time
-		self.finished_and_stored   = False
+		self.mission_id = save_mission_details(mission)
 
 	def set_new_mission(self, mission):
 
 		self.mission               = mission
 		self.time_until_completion = time.time() + mission.mission_time
+		self.finished_and_stored   = False
+		self.mission_id = save_mission_details(mission)
+
+	def finish(self, finished_missions):
+
+		self.finished_and_stored = True
+		for temp in finished_missions:
+			save_retrieved_items(self.mission_id, temp.item_name, temp.quantity_of_items)
+
 
 
 def test_functions():
