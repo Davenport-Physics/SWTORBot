@@ -18,10 +18,10 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	#test_functions()
+	test_functions()
 
-	crew_skill_runner = CrewSkillRunner()
-	crew_skill_runner.start()
+	#crew_skill_runner = CrewSkillRunner()
+	#crew_skill_runner.start()
 	return 0
 
 
@@ -97,10 +97,11 @@ class CrewSkillRunner:
 
 	def finish_missions(self):
 
-		for i in range(len(current_missions)):
-			raise "Nothing"
+		finished_missions = filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions)
+		while len(finish_missions) > 0:
+			time.sleep(uniform(0.5, 1.0))
 
-		raise "Nothing"
+
 
 	def schedule_missions(self):
 
