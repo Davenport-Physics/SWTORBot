@@ -17,10 +17,10 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	test_functions()
+	#test_functions()
 
-	#crew_skill_runner = CrewSkillRunner()
-	#crew_skill_runner.start()
+	crew_skill_runner = CrewSkillRunner()
+	crew_skill_runner.start()
 	return 0
 
 
@@ -47,9 +47,34 @@ class CrewSkillRunner:
 
 	def start(self):
 
+		self.set_first_missions()
+
 		while True:
-			self.loop()
 			time.sleep(1.0)
+			#self.loop()
+
+	def set_first_missions(self):
+
+		available_grades = self.player_config["grades_to_auto"].copy()
+		current_grade    = max(available_grades)
+		available_grades = filter(lambda x: x != current_grade, available_grades)
+
+		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
+
+			select_grade(current_grade)
+			time.sleep(0.5)
+			crew_member = select_crew_member_for_mission(i)
+			time.sleep(0.25)
+			try:
+				mission = get_next_available_mission()
+				self.current_missions.append(Assignment(mission, crew_member))
+				select_mission(mission)
+				send_companion()
+			except:
+				i = i - 1
+				current_grade    = max(available_grades)
+				available_grades = available_grades.where(lambda x: x != current_grade)
+
 
 	def loop(self):
 
@@ -65,16 +90,18 @@ class CrewSkillRunner:
 
 	def schedule_missions(self):
 
+		if self.ongoing_missions_count == self.num_crew_members:
+			return
+
 		mission_diff = self.max_concurrent_missions - self.ongoing_missions_count
 		for i in range(mission_diff):
-			raise "Nothing"
+			raise "None"
 
-
-class Assignments:
+class Assignment:
 
 	def __init__(self, mission, crew_member):
-		self.mission = mission
-		self.crew_member = crew_member
+		self.mission               = mission
+		self.crew_member           = crew_member
 		self.time_until_completion = time.time() + mission.mission_time
 
 	
