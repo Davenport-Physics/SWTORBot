@@ -9,6 +9,7 @@ from crew import get_available_crew
 from character import get_character_level, get_max_runnable_missions
 from grades import select_grade
 from crew_mission import get_next_available_mission, select_crew_member_for_mission, select_mission, send_companion
+from crew_mission_complete import get_mission_complete
 from storage import *
 from random import uniform
 
@@ -18,7 +19,8 @@ def main():
 	init_config()
 	init_game_images()
 	init_database()
-	test_functions()
+	test_crew_mission_complete()
+	#test_functions()
 
 	#crew_skill_runner = CrewSkillRunner()
 	#crew_skill_runner.start()
@@ -222,5 +224,10 @@ def test_crew_mission():
 	#select_mission(mission)
 	#send_companion()
 
+def test_crew_mission_complete():
+
+	pyautogui.moveTo(10, 10)
+	pyautogui.doubleClick()
+	print(get_mission_complete())
 
 main()
