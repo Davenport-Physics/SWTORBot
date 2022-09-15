@@ -56,9 +56,8 @@ class CrewSkillRunner:
 
 	def set_first_missions(self):
 
-		available_grades = self.player_config["grades_to_auto"].copy()
-		current_grade    = max(available_grades)
-		available_grades = filter(lambda x: x != current_grade, available_grades)
+		grade_selector = GradeSelector(self.player_config["grades_to_auto"])
+		current_grade  = grade_selector.get_next_grade()
 
 		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
 
@@ -73,8 +72,7 @@ class CrewSkillRunner:
 				send_companion()
 			except:
 				i = i - 1
-				current_grade    = max(available_grades)
-				available_grades = available_grades.where(lambda x: x != current_grade)
+				current_grade  = grade_selector.get_next_grade()
 
 
 	def loop(self):
@@ -94,9 +92,20 @@ class CrewSkillRunner:
 		if self.ongoing_missions_count == self.num_crew_members:
 			return
 
-		mission_diff = self.max_concurrent_missions - self.ongoing_missions_count
-		for i in range(mission_diff):
-			raise "None"
+
+class GradeSelector:
+
+	def __init__(self, grades):
+
+		self.grades = grades.copy()
+
+	def get_next_grade(self):
+
+		current_grade = max(self.grades)
+		self.grades = filter(lambda x: x != current_grade, self.grades)
+		return current_grade
+
+
 
 class Assignment:
 
@@ -104,8 +113,7 @@ class Assignment:
 		self.mission               = mission
 		self.crew_member           = crew_member
 		self.time_until_completion = time.time() + mission.mission_time
-
-	
+		self.finished              = False
 
 
 def test_functions():
