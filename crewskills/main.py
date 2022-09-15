@@ -36,6 +36,7 @@ class CrewSkillRunner:
 		self.ongoing_missions_count  = 0
 		self.player_config           = get_player_config()
 		self.current_missions        = []
+		self.reset_required          = False
 		self.open_mission_window()
 
 	def open_mission_window(self):
@@ -69,6 +70,7 @@ class CrewSkillRunner:
 				mission = get_next_available_mission()
 				self.current_missions.append(Assignment(mission, crew_member))
 				select_mission(mission)
+				time.sleep(uniform(0.25, 1.0))
 				send_companion()
 			except:
 				i = i - 1
@@ -77,8 +79,21 @@ class CrewSkillRunner:
 
 	def loop(self):
 
+		self.handle_reset()
 		self.finish_missions()
 		self.schedule_missions()
+
+	def handle_reset(self):
+
+		if not self.reset_required:
+			return
+
+		finished_assignments = filter(lambda assignment: assignments.finished_and_stored, self.current_missions)
+		if len(finished_assignments) == min(self.num_crew_members, self.max_concurrent_missions):
+			self.reset_required   = False
+			self.current_missions = []
+			self.set_first_missions()
+
 
 	def finish_missions(self):
 
@@ -89,8 +104,33 @@ class CrewSkillRunner:
 
 	def schedule_missions(self):
 
-		if self.ongoing_missions_count == self.num_crew_members:
+		if self.reset_required:
 			return
+
+		grade_selector = GradeSelector(self.player_config["grades_to_auto"])
+		current_grade  = grade_selector.get_next_grade()
+		assignments    = filter(lambda crew: crew.finished_and_stored, self.current_missions)
+		for i in range(len(assignments)):
+
+			select_grade(current_grade)
+			time.sleep(uniform(0.25, 1.0))
+
+			if select_crew_member_for_mission(assignments[i].dropdown_index) != assignments[i].crew_member_name:
+				self.reset_required = True
+				break
+
+			time.sleep(uniform(0.25, 1.0))
+			try:
+				mission = get_next_available_mission()
+				assignments[i].set_new_mission(mission)
+				select_mission(mission)
+				time.sleep(uniform(0.25, 1.0))
+				send_companion()
+			except:
+				i = i - 1
+				current_grade = grade_selector.get_next_grade()
+
+
 
 
 class GradeSelector:
@@ -109,11 +149,18 @@ class GradeSelector:
 
 class Assignment:
 
-	def __init__(self, mission, crew_member):
+	def __init__(self, mission, crew_member_name, dropdown_index):
+
 		self.mission               = mission
-		self.crew_member           = crew_member
+		self.crew_member_name      = crew_member_name
+		self.dropdown_index        = dropdown_index
 		self.time_until_completion = time.time() + mission.mission_time
-		self.finished              = False
+		self.finished_and_stored   = False
+
+	def set_new_mission(self, mission):
+
+		self.mission               = mission
+		self.time_until_completion = time.time() + mission.mission_time
 
 
 def test_functions():
