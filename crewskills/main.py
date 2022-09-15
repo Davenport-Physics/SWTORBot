@@ -54,7 +54,7 @@ class CrewSkillRunner:
 		self.set_first_missions()
 
 		while True:
-			time.sleep(1.0)
+			time.sleep(3.0)
 			self.loop()
 
 	def set_first_missions(self):
@@ -102,7 +102,7 @@ class CrewSkillRunner:
 		finished_assignments = list(filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions))
 		finished_missions    = []
 		while True:
-			time.sleep(uniform(0.5, 1.0))
+			time.sleep(uniform(1.0, 2.0))
 			try:
 				finished_missions.append(get_mission_complete())
 			except:
