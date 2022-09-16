@@ -111,7 +111,8 @@ class CrewSkillRunner:
 
 		for assignment in finished_assignments:
 			relevant_missions = list(filter(lambda mission: assignment.crew_member_name in mission.description, finished_missions))
-			assignment.finish(relevant_missions)
+			if len(relevant_missions) > 0:
+				assignment.finish(relevant_missions)
 
 
 	def schedule_missions(self):
