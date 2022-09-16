@@ -67,6 +67,10 @@ class ScreenImage:
 
 		return text
 
+	def get_ocr_text_with_chars(self):
+
+		return self.get_ocr_text("--psm 13 --oem 3")
+
 	def get_ocr_in_range(self, x1, y1, x2, y2):
 
 		text = pytesseract.image_to_boxes(self.opencv_image)

@@ -20,11 +20,11 @@ def main():
 	init_game_images()
 	init_database()
 	#test_storage()
-	#test_crew_mission_complete()
+	test_crew_mission_complete()
 	#test_functions()
 
-	crew_skill_runner = CrewSkillRunner()
-	crew_skill_runner.start()
+	#crew_skill_runner = CrewSkillRunner()
+	#crew_skill_runner.start()
 	return 0
 
 
@@ -114,6 +114,7 @@ class CrewSkillRunner:
 				print(mission_complete)
 				finished_missions.append(mission_complete)
 			except Exception as err:
+				print(err)
 				break
 
 		for assignment in finished_assignments:

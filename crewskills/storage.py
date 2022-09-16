@@ -64,3 +64,11 @@ def save_retrieved_items(mission_id, item_name, amount):
 	sql_command = "INSERT INTO RetrievedItems(AcceptedMissionId, ItemId, Amount) VALUES (?, ?, ?)"
 	cur.execute(sql_command, (mission_id, item_id, amount))
 	con.commit()
+
+def save_log_no_parse_ocr(description, picture):
+
+	global con
+	global cur
+	sql_command = "INSERT INTO Log_NoParsingOCR(LogDescription, Picture) VALUES (?, ?)"
+	cur.execute(sql_command, (description, picture))
+	con.commit()

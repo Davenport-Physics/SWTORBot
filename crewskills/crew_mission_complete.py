@@ -7,8 +7,17 @@ import time
 def get_quantity_of_items(x1, y1):
 
 	screen_image = ScreenImage()
-	cropped = screen_image.get_cropped_image(x1+10, y1+10, x1+30, y1+30)
-	return int(cropped.get_ocr_text()[0])
+	cropped = screen_image.get_cropped_image(x1+6, y1+8, x1+28, y1+23)
+	number  = cropped.get_ocr_text()[0]
+	try:
+		return int(number)
+	except Exception as err:
+		print("get_quantity_of_items: exception {}".format(err))
+		cropped = screen_image.get_cropped_image(x1+6, y1+8, x1+25, y1+23)
+		number  = cropped.get_ocr_text()[0]
+		print("get_quantity_of_items: Secondary parse attempt, value read -> {}".format(number))
+		return int(number)
+
 
 def get_item_name(x1, y1):
 
@@ -21,7 +30,6 @@ def get_description(x1, y1):
 	screen_image = ScreenImage()
 	cropped = screen_image.get_cropped_image(x1, y1-75, x1+100, y1-50)
 	return cropped.get_ocr_text("--psm 13 --oem 3")[0].replace("\n", "")
-
 
 def get_mission_complete():
 
@@ -41,7 +49,7 @@ def get_mission_complete():
 	description = get_description(provided_coords[0], provided_coords[1])
 
 	pyautogui.moveTo(accept_coords[0]+5, accept_coords[1]+5)
-	pyautogui.click()
+	#pyautogui.click()
 	time.sleep(0.1)
 	pyautogui.moveTo(10, 10)
 
