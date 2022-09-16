@@ -56,7 +56,7 @@ class CrewSkillRunner:
 		self.set_first_missions()
 
 		while True:
-			time.sleep(3.0)
+			time.sleep(1.5)
 			self.loop()
 
 	def set_first_missions(self):
@@ -67,9 +67,9 @@ class CrewSkillRunner:
 		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
 
 			select_grade(current_grade)
-			time.sleep(uniform(0.25, 1.0))
+			time.sleep(uniform(0.5, 1.0))
 			crew_member = select_crew_member_for_mission(i)
-			time.sleep(uniform(0.25, 1.0))
+			time.sleep(uniform(0.5, 1.0))
 			try:
 				mission = get_next_available_mission()
 				self.current_missions.append(Assignment(mission, crew_member, i))
@@ -93,7 +93,6 @@ class CrewSkillRunner:
 			return
 
 		remaining_assignments = list(filter(lambda assignment: not assignment.finished_and_stored, self.current_missions))
-		print("remaining_assignments = {}".format(len(remaining_assignments)))
 		if len(remaining_assignments) == 0:
 			self.reset_required   = False
 			self.current_missions = []
@@ -128,8 +127,9 @@ class CrewSkillRunner:
 		for i in range(len(assignments)):
 
 			select_grade(current_grade)
-			time.sleep(uniform(0.25, 1.0))
+			time.sleep(uniform(0.5, 1.0))
 			temp_crew_member_name = select_crew_member_for_mission(assignments[i].dropdown_index)
+			time.sleep(uniform(0.25, 0.5))
 
 			if temp_crew_member_name != assignments[i].crew_member_name:
 				print("reset_required = True. {} != {}".format(temp_crew_member_name, assignments[i].crew_member_name))
@@ -171,7 +171,7 @@ class Assignment:
 		self.mission               = mission
 		self.crew_member_name      = crew_member_name
 		self.dropdown_index        = dropdown_index
-		self.time_until_completion = time.time() + mission.mission_time + 3
+		self.time_until_completion = time.time() + mission.mission_time + 6
 		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission, crew_member_name)
 
@@ -182,14 +182,12 @@ class Assignment:
 	def set_new_mission(self, mission):
 
 		self.mission               = mission
-		self.time_until_completion = time.time() + mission.mission_time + 3
+		self.time_until_completion = time.time() + mission.mission_time + 6
 		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission, self.crew_member_name)
 
 	def finish(self):
 
-		#for temp in finished_missions:
-		#	save_retrieved_items(self.mission_id, temp.item_name, temp.quantity_of_items)
 		self.finished_and_stored = True
 
 
