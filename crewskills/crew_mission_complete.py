@@ -12,11 +12,16 @@ def get_quantity_of_items(x1, y1):
 	try:
 		return int(number)
 	except Exception as err:
-		print("get_quantity_of_items: exception {}".format(err))
+		cropped.log_image("get_quantity_of_items: Unable to parse image: {}".format(number))
 		cropped = screen_image.get_cropped_image(x1+6, y1+8, x1+25, y1+23)
-		number  = cropped.get_ocr_text()[0]
-		print("get_quantity_of_items: Secondary parse attempt, value read -> {}".format(number))
-		return int(number)
+
+		try:		
+			number = cropped.get_ocr_text()[0]
+			return int(number)
+		except:
+			cropped.log_image("get_quantity_of_items: Unable to parse secondary image: {}".format(number))
+
+	return -1
 
 
 def get_item_name(x1, y1):

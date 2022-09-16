@@ -2,6 +2,7 @@ from PIL import ImageGrab
 import cv2  
 import numpy as np
 import pytesseract
+from storage import save_log_no_parse_ocr
 
 def convert_pil_image_to_cv2(image):
 
@@ -26,6 +27,10 @@ class ScreenImage:
 
 		with open(location, "w+") as fp :
 			self.image.save(fp)
+
+	def log_image(self, description):
+
+		save_log_no_parse_ocr(description, self.image)
 
 	def get_coords_of_sub_image(self, sub_image, threshold=0.85):
 
