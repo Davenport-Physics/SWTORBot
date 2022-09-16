@@ -80,6 +80,8 @@ class CrewSkillRunner:
 				i = i - 1
 				current_grade  = grade_selector.get_next_grade()
 
+		self.reset_required = True
+
 
 	def loop(self):
 
