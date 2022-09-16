@@ -29,8 +29,8 @@ class ScreenImage:
 			self.image.save(fp)
 
 	def log_image(self, description):
-
-		save_log_no_parse_ocr(description, bytes(self.image))
+		pass
+		#save_log_no_parse_ocr(description, bytes(self.image))
 
 	def get_coords_of_sub_image(self, sub_image, threshold=0.85):
 

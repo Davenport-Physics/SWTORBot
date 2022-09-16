@@ -54,9 +54,9 @@ def get_mission_complete():
 	description = get_description(provided_coords[0], provided_coords[1])
 
 	pyautogui.moveTo(accept_coords[0]+5, accept_coords[1]+5)
-	#pyautogui.click()
-	time.sleep(0.1)
+	pyautogui.click()
 	pyautogui.moveTo(10, 10)
+	time.sleep(0.1)
 
 	return MissionComplete(description, item_name, quantity_of_items)
 
