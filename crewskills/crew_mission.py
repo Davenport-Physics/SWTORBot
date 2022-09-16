@@ -108,7 +108,12 @@ class CrewMission:
 
 		self.mission_time = 0
 		for text in time_text:
-			if 'm' in text:
-				self.mission_time = self.mission_time + int(text.replace("m", ""))*60
-			elif 's' in text:
-				self.mission_time = self.mission_time + int(text.replace("s", ""))
+			text = text.replace("_", "").replace("\n", "").replace("a", "4")
+			try:
+				if 'm' in text:
+					self.mission_time = self.mission_time + int(text.replace("m", ""))*60
+				elif 's' in text:
+					self.mission_time = self.mission_time + int(text.replace("s", ""))
+			except:
+				time_text_image.save_image("current_exception.jpg")
+				raise "Unable to parse {}".format(time_text)

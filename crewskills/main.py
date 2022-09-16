@@ -65,6 +65,7 @@ class CrewSkillRunner:
 
 		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
 
+			print(i)
 			select_grade(current_grade)
 			time.sleep(uniform(0.25, 1.0))
 			crew_member = select_crew_member_for_mission(i)
@@ -102,11 +103,18 @@ class CrewSkillRunner:
 
 		finished_assignments = list(filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions))
 		finished_missions    = []
+
+		for i in range(len(finished_missions)):
+			print(finished_assignments[i])
+
 		while True:
 			time.sleep(uniform(1.0, 2.0))
 			try:
-				finished_missions.append(get_mission_complete())
+				mission_complete = get_mission_complete()
+				print(mission_complete)
+				finished_missions.append(mission_complete)
 			except:
+				print("Found no others finished missions")
 				break
 
 		for assignment in finished_assignments:
@@ -127,8 +135,10 @@ class CrewSkillRunner:
 
 			select_grade(current_grade)
 			time.sleep(uniform(0.25, 1.0))
+			temp_crew_member_name = select_crew_member_for_mission(assignments[i].dropdown_index)
 
-			if select_crew_member_for_mission(assignments[i].dropdown_index) != assignments[i].crew_member_name:
+			if temp_crew_member_name != assignments[i].crew_member_name:
+				print("reset_required = True. {} != {}".format(temp_crew_member_name, assignments[i].crew_member_name))
 				self.reset_required = True
 				break
 
@@ -171,6 +181,10 @@ class Assignment:
 		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission)
 
+	def __str__(self):
+
+		return "Assignment(missions = {}, crew_member_name = {}, mission_id = {})".format(self.mission, self.crew_member_name, self.mission_id)
+
 	def set_new_mission(self, mission):
 
 		self.mission               = mission
@@ -180,9 +194,10 @@ class Assignment:
 
 	def finish(self, finished_missions):
 
-		self.finished_and_stored = True
 		for temp in finished_missions:
 			save_retrieved_items(self.mission_id, temp.item_name, temp.quantity_of_items)
+
+		self.finished_and_stored = True
 
 
 
