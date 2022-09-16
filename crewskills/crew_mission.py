@@ -11,12 +11,11 @@ def get_next_available_mission():
 	coords = screen_image.get_coords_of_sub_image(cost_image.opencv_image)
 
 	if coords is None:
-		raise "No available mission"
+		raise Exception("No available mission")
 
 	p0 = (coords[0]-309, coords[1]-14)
 	p1 = (p0[0]+400, p0[1]+149)
 	mission_image = screen_image.get_cropped_image(p0[0], p0[1], p1[0], p1[1])
-	#mission_image.save_image("mission_image.jpg")
 
 	return CrewMission(mission_image, coords)
 
@@ -120,4 +119,4 @@ class CrewMission:
 					self.mission_time = self.mission_time + int(text.replace("s", ""))
 			except:
 				time_text_image.save_image("current_exception.jpg")
-				raise "Unable to parse {}".format(time_text)
+				raise Exception("Unable to parse {}".format(time_text))

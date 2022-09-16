@@ -189,7 +189,7 @@ class Assignment:
 		self.mission               = mission
 		self.time_until_completion = time.time() + mission.mission_time
 		self.finished_and_stored   = False
-		self.mission_id = save_mission_details(mission)
+		self.mission_id = save_mission_details(mission, self.crew_member_name)
 
 	def finish(self, finished_missions):
 
