@@ -41,6 +41,7 @@ class CrewSkillRunner:
 		self.current_missions        = []
 		self.reset_required          = False
 		self.open_mission_window()
+		pyautogui.press('b')
 
 	def open_mission_window(self):
 
@@ -65,7 +66,6 @@ class CrewSkillRunner:
 
 		for i in range(min([self.max_concurrent_missions, self.num_crew_members])):
 
-			print(i)
 			select_grade(current_grade)
 			time.sleep(uniform(0.25, 1.0))
 			crew_member = select_crew_member_for_mission(i)
@@ -92,8 +92,9 @@ class CrewSkillRunner:
 		if not self.reset_required:
 			return
 
-		finished_assignments = list(filter(lambda assignment: assignment.finished_and_stored, self.current_missions))
-		if len(finished_assignments) == min(self.num_crew_members, self.max_concurrent_missions):
+		remaining_assignments = list(filter(lambda assignment: not assignment.finished_and_stored, self.current_missions))
+		print("remaining_assignments = {}".format(len(remaining_assignments)))
+		if len(remaining_assignments) == 0:
 			self.reset_required   = False
 			self.current_missions = []
 			self.set_first_missions()
@@ -104,23 +105,16 @@ class CrewSkillRunner:
 		finished_assignments = list(filter(lambda missions: missions.time_until_completion < time.time() and not missions.finished_and_stored, self.current_missions))
 		finished_missions    = []
 
-		for i in range(len(finished_assignments)):
-			print(finished_assignments[i])
-
 		while True:
 			time.sleep(uniform(1.0, 2.0))
 			try:
 				mission_complete = get_mission_complete()
-				print(mission_complete)
 				finished_missions.append(mission_complete)
 			except Exception as err:
-				print(err)
 				break
 
 		for assignment in finished_assignments:
-			relevant_missions = list(filter(lambda mission: assignment.crew_member_name in mission.description, finished_missions))
-			if len(relevant_missions) > 0:
-				assignment.finish(relevant_missions)
+			assignment.finish()
 
 
 	def schedule_missions(self):
@@ -177,7 +171,7 @@ class Assignment:
 		self.mission               = mission
 		self.crew_member_name      = crew_member_name
 		self.dropdown_index        = dropdown_index
-		self.time_until_completion = time.time() + mission.mission_time
+		self.time_until_completion = time.time() + mission.mission_time + 3
 		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission, crew_member_name)
 
@@ -188,15 +182,14 @@ class Assignment:
 	def set_new_mission(self, mission):
 
 		self.mission               = mission
-		self.time_until_completion = time.time() + mission.mission_time
+		self.time_until_completion = time.time() + mission.mission_time + 3
 		self.finished_and_stored   = False
 		self.mission_id = save_mission_details(mission, self.crew_member_name)
 
-	def finish(self, finished_missions):
+	def finish(self):
 
-		for temp in finished_missions:
-			save_retrieved_items(self.mission_id, temp.item_name, temp.quantity_of_items)
-
+		#for temp in finished_missions:
+		#	save_retrieved_items(self.mission_id, temp.item_name, temp.quantity_of_items)
 		self.finished_and_stored = True
 
 

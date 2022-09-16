@@ -43,22 +43,22 @@ def get_mission_complete():
 	if accept_coords is None:
 		raise Exception("Unable to find accept reference coords")
 
-	provided_coords = screen_image.get_coords_of_sub_image(get_misc_image("provided_rewards").opencv_image)
-	if provided_coords is None:
-		raise Exception("Unable to find provided rewards")
+	#provided_coords = screen_image.get_coords_of_sub_image(get_misc_image("provided_rewards").opencv_image)
+	#if provided_coords is None:
+	#	raise Exception("Unable to find provided rewards")
 
-	quantity_of_items = get_quantity_of_items(provided_coords[0]+20, provided_coords[1]+40)
-	pyautogui.moveTo(provided_coords[0]+20, provided_coords[1]+40)
-	time.sleep(0.5)
-	item_name   = get_item_name(provided_coords[0]+20, provided_coords[1]+40)
-	description = get_description(provided_coords[0], provided_coords[1])
+	#quantity_of_items = get_quantity_of_items(provided_coords[0]+20, provided_coords[1]+40)
+	#pyautogui.moveTo(provided_coords[0]+20, provided_coords[1]+40)
+	#time.sleep(0.5)
+	#item_name   = get_item_name(provided_coords[0]+20, provided_coords[1]+40)
+	#description = get_description(provided_coords[0], provided_coords[1])
 
 	pyautogui.moveTo(accept_coords[0]+5, accept_coords[1]+5)
 	pyautogui.click()
 	pyautogui.moveTo(10, 10)
 	time.sleep(0.1)
 
-	return MissionComplete(description, item_name, quantity_of_items)
+	#return MissionComplete(description, item_name, quantity_of_items)
 
 
 class MissionComplete:
