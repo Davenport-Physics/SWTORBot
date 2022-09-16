@@ -28,11 +28,11 @@ def get_mission_complete():
 	screen_image = ScreenImage()
 	accept_coords = screen_image.get_coords_of_sub_image(get_misc_image("mission_accept").opencv_image)
 	if accept_coords is None:
-		raise "Unable to find accept reference coords"
+		raise Exception("Unable to find accept reference coords")
 
 	provided_coords = screen_image.get_coords_of_sub_image(get_misc_image("provided_rewards").opencv_image)
 	if provided_coords is None:
-		raise "Unable to find provided rewards"
+		raise Exception("Unable to find provided rewards")
 
 	quantity_of_items = get_quantity_of_items(provided_coords[0]+20, provided_coords[1]+40)
 	pyautogui.moveTo(provided_coords[0]+20, provided_coords[1]+40)
@@ -42,6 +42,8 @@ def get_mission_complete():
 
 	pyautogui.moveTo(accept_coords[0]+5, accept_coords[1]+5)
 	pyautogui.click()
+	time.sleep(0.1)
+	pyautogui.moveTo(10, 10)
 
 	return MissionComplete(description, item_name, quantity_of_items)
 

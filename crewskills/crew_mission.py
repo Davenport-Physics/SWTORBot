@@ -99,7 +99,11 @@ class CrewMission:
 
 		cost_text_image   = self.mission_image.get_cropped_image(self.ref_coords[0], self.ref_coords[1], self.ref_coords[0]+102, self.ref_coords[1]+17)
 		text              = cost_text_image.get_ocr_text()
-		self.mission_cost = int(text[0])
+		try:
+			self.mission_cost = int(text[0])
+		except Exception as err:
+			cost_text_image.save_image("cost_text_exception.jpg")
+			raise err
 
 	def init_time(self):
 

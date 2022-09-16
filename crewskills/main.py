@@ -101,10 +101,10 @@ class CrewSkillRunner:
 
 	def finish_missions(self):
 
-		finished_assignments = list(filter(lambda missions: missions.time_until_completion <= time.time() and not missions.finished_and_stored, self.current_missions))
+		finished_assignments = list(filter(lambda missions: missions.time_until_completion < time.time() and not missions.finished_and_stored, self.current_missions))
 		finished_missions    = []
 
-		for i in range(len(finished_missions)):
+		for i in range(len(finished_assignments)):
 			print(finished_assignments[i])
 
 		while True:
@@ -113,8 +113,7 @@ class CrewSkillRunner:
 				mission_complete = get_mission_complete()
 				print(mission_complete)
 				finished_missions.append(mission_complete)
-			except:
-				print("Found no others finished missions")
+			except Exception as err:
 				break
 
 		for assignment in finished_assignments:
