@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS AcceptedMissions
 	AcceptedMissionId INTEGER PRIMARY KEY,
 	MissionElapse INTEGER NOT NULL,
 	MissionCost INTEGER NOT NULL,
+	Assignee VARCHAR(64) NOT NULL,
 	Successful BOOL NOT NULL DEFAULT(0)
 );
 

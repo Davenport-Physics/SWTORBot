@@ -17,13 +17,13 @@ def init_database():
 	cur.executescript(sql_commands)
 	con.commit()
 
-def save_mission_details(mission):
+def save_mission_details(mission, assignee):
 
 	global con
 	global cur
 
-	sql_command = """INSERT INTO AcceptedMissions(MissionElapse, MissionCost) VALUES (?, ?)"""
-	cur.execute(sql_command, (mission.mission_time, mission.mission_cost))
+	sql_command = """INSERT INTO AcceptedMissions(MissionElapse, MissionCost, Assignee) VALUES (?, ?, ?)"""
+	cur.execute(sql_command, (mission.mission_time, mission.mission_cost, assignee))
 	con.commit()
 
 	return cur.lastrowid

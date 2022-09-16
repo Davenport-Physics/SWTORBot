@@ -179,7 +179,7 @@ class Assignment:
 		self.dropdown_index        = dropdown_index
 		self.time_until_completion = time.time() + mission.mission_time
 		self.finished_and_stored   = False
-		self.mission_id = save_mission_details(mission)
+		self.mission_id = save_mission_details(mission, crew_member_name)
 
 	def __str__(self):
 
